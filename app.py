@@ -102,8 +102,9 @@ if "screening_intake" not in st.session_state:
     st.session_state.screening_intake = {}
 if "nav_section" not in st.session_state:
     st.session_state.nav_section = "Inputs" if st.session_state.page == "Donor Screening" else "Requests"
-if "light_mode" not in st.session_state:
-    st.session_state.light_mode = False
+if "theme_default_v1" not in st.session_state:
+    st.session_state.light_mode = True
+    st.session_state.theme_default_v1 = True
 
 header_left, header_right = st.columns([5, 1])
 with header_right:
@@ -126,7 +127,7 @@ st.markdown(
     .hero-motto {margin:.55rem 0 0;color:#c3d6dc;font-size:1.03rem;}
     .hero-motto strong {color:#ff7580;font-weight:600;}
     .hero-art {position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:180px;height:120px;flex:none;}
-    .pulse-orbit {position:absolute;width:84px;height:84px;border:1px solid rgba(113,223,213,.42);border-radius:50%;animation:orbit-pulse 3.2s ease-out infinite;}
+    .pulse-orbit {position:absolute;width:84px;height:84px;border:1px solid rgba(255,113,128,.42);border-radius:50%;animation:orbit-pulse 3.2s ease-out infinite;}
     .pulse-orbit.delay {animation-delay:1.6s;}
     .pulse-line {width:150px;height:64px;filter:drop-shadow(0 0 9px rgba(255,103,116,.58));animation:line-glow 2.8s ease-in-out infinite;}
     .demo-chip {display:inline-flex;align-items:center;gap:.45rem;margin-top:1.05rem;padding:.34rem .65rem;border:1px solid rgba(255,255,255,.13);border-radius:99px;background:rgba(4,17,26,.42);color:#b8cdd3;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;}
@@ -139,7 +140,7 @@ st.markdown(
     div[data-testid="stMetric"] {padding:.45rem .7rem;border-left:2px solid #43b8b3;background:rgba(15,37,49,.65);border-radius:0 10px 10px 0;}
     div[data-testid="stMetricLabel"] {color:#9eb7c0!important;}
     div[data-testid="stMetricValue"] {color:#f7fbfc!important;}
-    div[data-testid="stButton"]>button {border:1px solid rgba(255,117,128,.42);border-radius:10px;background:linear-gradient(135deg,#bc3e53,#e05b68);color:white;font-weight:650;transition:transform .18s ease,box-shadow .18s ease;}
+    div[data-testid="stButton"]>button {border:1px solid rgba(255,117,128,.42);border-radius:10px;background:linear-gradient(135deg,#a91f35,#d54657);color:white;font-weight:650;transition:transform .18s ease,box-shadow .18s ease;}
     div[data-testid="stButton"]>button:hover {transform:translateY(-1px);box-shadow:0 8px 24px rgba(224,91,104,.24);border-color:#ff8892;color:white;}
     div[data-testid="stAlert"] {border-radius:12px;border:1px solid rgba(255,193,105,.34);background:rgba(49,39,27,.92)!important;color:#ffedcf!important;}
     div[data-testid="stAlert"] * {color:#ffedcf!important;}
@@ -157,25 +158,26 @@ st.markdown(
 if st.session_state.light_mode:
     st.markdown(
         """<style>
-        .stApp {background:#f3f7f8!important;color:#19303c!important;}
+        .stApp {background:radial-gradient(ellipse at 85% 0%,rgba(203,47,68,.08),transparent 38%),#fffaf9!important;color:#28323a!important;}
         [data-testid="stMarkdownContainer"], [data-testid="stMarkdownContainer"] p,
         [data-testid="stMarkdownContainer"] li, .stApp h1, .stApp h2, .stApp h3,
-        .stApp label, .stApp [data-testid="stWidgetLabel"] p {color:#19303c!important;}
-        .hero {background:linear-gradient(112deg,#e1f1f2,#d7ecec 58%,#cde5e4)!important;border-color:#a8d0d0!important;box-shadow:0 18px 48px rgba(31,76,84,.12),inset 0 1px #fff!important;}
-        .hero h1 {color:#12323c!important;}.hero-motto {color:#345761!important;}.hero-motto strong {color:#bd4052!important;}
-        .brand-name {color:#17303b!important;}.brand-caption {color:#54727b!important;}
-        .demo-chip {background:rgba(255,255,255,.72)!important;border-color:#c2dada!important;color:#385963!important;}
-        div[data-testid="stVerticalBlockBorderWrapper"] {background:#fff!important;border-color:#d6e2e7!important;box-shadow:0 8px 24px rgba(35,67,82,.06);}
-        div[data-testid="stMetric"] {background:#eaf3f4!important;border-left-color:#168b87!important;}
-        div[data-testid="stMetricLabel"] {color:#526b77!important;}
-        div[data-testid="stMetricValue"] {color:#19303c!important;}
-        div[data-testid="stCaptionContainer"], div[data-testid="stCaptionContainer"] * {color:#536c77!important;}
-        div[role="radiogroup"] label {background:#fff!important;border-color:#d6e2e7!important;}
-        div[role="radiogroup"] label, div[role="radiogroup"] label * {color:#304b58!important;}
-        div[role="radiogroup"] label:has(input:checked) {background:#e2f3f1!important;border-color:#168b87!important;}
-        div[role="radiogroup"] label:has(input:checked), div[role="radiogroup"] label:has(input:checked) * {color:#173e45!important;}
-        [data-baseweb="input"]>div,[data-baseweb="select"]>div {background:#fff!important;border-color:#c8d8df!important;}
-        [data-baseweb="input"] input,[data-baseweb="select"] * {color:#19303c!important;}
+        .stApp label, .stApp [data-testid="stWidgetLabel"] p {color:#28323a!important;}
+        .hero {background:linear-gradient(112deg,#fff,#fff0f1 62%,#fde5e7)!important;border-color:#edc5ca!important;box-shadow:0 18px 48px rgba(91,29,39,.09),inset 0 1px #fff!important;}
+        .hero h1 {color:#43242a!important;}.hero-motto {color:#64474c!important;}.hero-motto strong {color:#b42336!important;}
+        .brand-name {color:#43242a!important;}.brand-caption {color:#8f5961!important;}
+        .demo-chip {background:rgba(255,255,255,.82)!important;border-color:#edc5ca!important;color:#77464e!important;}
+        .pulse-orbit {border-color:rgba(180,35,54,.28)!important;}
+        div[data-testid="stVerticalBlockBorderWrapper"] {background:rgba(255,255,255,.94)!important;border-color:#eadfe0!important;box-shadow:0 8px 24px rgba(68,32,37,.045);}
+        div[data-testid="stMetric"] {background:#fff1f2!important;border-left-color:#bd3445!important;}
+        div[data-testid="stMetricLabel"] {color:#70565a!important;}
+        div[data-testid="stMetricValue"] {color:#43242a!important;}
+        div[data-testid="stCaptionContainer"], div[data-testid="stCaptionContainer"] * {color:#665b5c!important;}
+        div[role="radiogroup"] label {background:#fff!important;border-color:#eadfe0!important;}
+        div[role="radiogroup"] label, div[role="radiogroup"] label * {color:#493a3c!important;}
+        div[role="radiogroup"] label:has(input:checked) {background:#fff0f1!important;border-color:#cf6976!important;}
+        div[role="radiogroup"] label:has(input:checked), div[role="radiogroup"] label:has(input:checked) * {color:#842b38!important;}
+        [data-baseweb="input"]>div,[data-baseweb="select"]>div {background:#fff!important;border-color:#e2d5d7!important;}
+        [data-baseweb="input"] input,[data-baseweb="select"] * {color:#28323a!important;}
         div[data-testid="stAlert"] {background:#fff4e3!important;border-color:#e7cc9b!important;color:#65451c!important;}
         div[data-testid="stAlert"] * {color:#65451c!important;}
         div[data-testid="stButton"]>button {color:#fff!important;}
@@ -186,9 +188,9 @@ st.markdown(
     '''<div class="hero">
       <div class="hero-copy">
         <div class="hero-brand">
-          <svg class="logo-mark" viewBox="0 0 64 64" role="img" aria-label="Time to Help pulse logo">
-            <circle cx="32" cy="32" r="27" fill="rgba(112,220,214,.08)" stroke="#70dcd6" stroke-width="1.5"/>
-            <circle cx="32" cy="32" r="20" fill="none" stroke="rgba(112,220,214,.22)" stroke-width="1"/>
+        <svg class="logo-mark" viewBox="0 0 64 64" role="img" aria-label="Time to Help pulse logo">
+            <circle cx="32" cy="32" r="27" fill="rgba(255,113,128,.08)" stroke="#e66b78" stroke-width="1.5"/>
+            <circle cx="32" cy="32" r="20" fill="none" stroke="rgba(255,113,128,.22)" stroke-width="1"/>
             <path d="M7 34h13l5-10 8 20 7-15 4 5h13" fill="none" stroke="#ff7180" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
             <circle cx="32" cy="32" r="2.4" fill="#fff"/>
           </svg>
@@ -247,7 +249,7 @@ if st.session_state.nav_section == "Requests":
 else:
     st.session_state.page = "Donor Screening"
     st.markdown("### Donor inputs")
-    st.caption("Record fictional, self-reported screening information for a contacted donor.")
+    st.caption("Donors can enter their own details; age must be 18 or older.")
 
 pages = ["Create Request", "Prioritized Donors", "Live Request Status", "Donor Screening", "Request History / Audit"]
 
@@ -412,98 +414,110 @@ elif st.session_state.page == pages[2]:
 
 elif st.session_state.page == pages[3]:
     request = st.session_state.request
-    st.subheader("Donor screening handoff")
+    st.subheader("Donor self-entry")
     if not request:
         st.info("Create and verify an emergency request first.")
     else:
-        st.caption(f"Request {request['id']} · fictional coordination demo")
+        st.caption(f"For request {request['id']}")
         st.info(
-            "Use fictional values only. This is a self-reported intake, not an eligibility test. "
-            "Every submission starts Blood-bank review pending. Do not enter real donor health information."
+            "Donors enter their own details here. Entries stay in this active app session, "
+            "are not shown in ranked results, and are not written to the audit log. "
+            "This prototype has no sign-in or identity verification."
         )
         st.caption(
-            "Blood-bank staff must perform the actual interview, measurements, and final screening. "
-            "This prototype applies no health thresholds and makes no eligibility decision."
+            "Self-entry is not medical clearance and does not add a donor to the ranked list. "
+            "Authorized blood-bank staff must verify identity, measurements, blood group, and "
+            "final eligibility. This prototype applies no health thresholds."
         )
-        intake_donors = [d for d in st.session_state.donors if d["response"] in ("Contacted", "Accepted")]
-        if not intake_donors:
-            st.caption("Simulate contact with a potential donor before recording a demo handoff.")
-        else:
-            donor_id = st.selectbox(
-                "Anonymized donor ID", [d["id"] for d in intake_donors],
-                key=f"intake_donor_{st.session_state.request_key}",
+        with st.form(f"donor_self_entry_{st.session_state.request_key}"):
+            st.markdown("#### Donor details")
+            donor_name = st.text_input("Name", placeholder="Enter your name")
+            st.markdown("#### Age")
+            age_text = st.text_input("Age in years (18 or older)", placeholder="Enter age")
+            st.markdown("#### Weight")
+            weight_text = st.text_input("Weight in kg", placeholder="Enter weight")
+            st.markdown("#### Gender")
+            gender = st.selectbox(
+                "Gender", ["Prefer not to say", "Woman", "Man", "Another identity"]
             )
-            intake_key = f"{st.session_state.request_key}:{donor_id}"
-            prior = st.session_state.screening_intake.get(intake_key, {})
-            donor_confirmed = st.checkbox(
-                "Donor confirms these fictional, self-reported demo entries",
-                value=prior.get("donor_confirmed", False),
-                key=f"donor_confirm_{st.session_state.request_key}_{donor_id}",
+            st.markdown("#### Hemoglobin")
+            hemoglobin_text = st.text_input(
+                "Hemoglobin in g/dL (optional)", placeholder="If known"
             )
-            st.caption("Self-attestation only; it does not verify identity, measurements, or eligibility.")
-            with st.form(f"screening_intake_{st.session_state.request_key}_{donor_id}"):
-                st.markdown("#### Age")
-                age = st.number_input("Age in years (0 = not provided)", min_value=0, max_value=120, value=prior.get("age", 0))
-                st.markdown("#### Weight")
-                weight = st.number_input("Weight in kg (0 = not provided)", min_value=0.0, max_value=300.0, value=prior.get("weight_kg", 0.0), step=0.5)
-                st.markdown("#### Gender")
-                gender_options = ["Not provided", "Woman", "Man", "Another identity", "Prefer not to say"]
-                gender = st.selectbox("Self-described gender (optional)", gender_options, index=gender_options.index(prior.get("gender", "Not provided")))
-                st.caption("Collected for demo context only; gender is not used by the ranking or screening workflow.")
-                st.markdown("#### Hemoglobin")
-                hemoglobin = st.number_input("Hemoglobin, g/dL (0 = not provided)", min_value=0.0, max_value=30.0, value=prior.get("hemoglobin_g_dl", 0.0), step=0.1)
-                st.caption("Reported demo value only. Blood-bank staff must measure and review it; no cutoff is applied.")
-                donation_history = st.selectbox(
-                    "Previous donation history",
-                    ["Not answered", "No prior donation reported", "Previous donation reported"],
-                    index=["Not answered", "No prior donation reported", "Previous donation reported"].index(prior.get("donation_history", "Not answered")),
+            donor_confirmed = st.checkbox("I am the donor and confirm these are my own details")
+            submitted_intake = st.form_submit_button("Save donor details", type="primary")
+
+        if submitted_intake:
+            error = None
+            if not donor_name.strip():
+                error = "Enter your name."
+            elif not age_text.strip().isdigit() or not 18 <= int(age_text.strip()) <= 120:
+                error = "Age must be a whole number from 18 to 120."
+            try:
+                weight = float(weight_text.strip())
+                if weight <= 0:
+                    raise ValueError
+            except ValueError:
+                error = error or "Enter a weight greater than 0 kg."
+            hemoglobin = None
+            if hemoglobin_text.strip():
+                try:
+                    hemoglobin = float(hemoglobin_text.strip())
+                    if hemoglobin <= 0:
+                        raise ValueError
+                except ValueError:
+                    error = error or "Enter a positive hemoglobin value, or leave it blank."
+            if not donor_confirmed:
+                error = error or "Confirm that you are entering your own details."
+
+            if error:
+                st.error(error)
+            else:
+                donor_id = f"DNR-{uuid.uuid4().hex[:6].upper()}"
+                intake_key = f"{st.session_state.request_key}:{donor_id}"
+                st.session_state.screening_intake[intake_key] = {
+                    "name": donor_name.strip(),
+                    "age": int(age_text.strip()),
+                    "weight_kg": weight,
+                    "gender": gender,
+                    "hemoglobin_g_dl": hemoglobin,
+                    "review_status": "Blood-bank review pending",
+                    "review_recorded_at": None,
+                }
+                add_audit(
+                    f"Donor self-entry recorded as {donor_id} for request {request['id']}; "
+                    "Blood-bank review pending"
                 )
-                last_date = st.text_input("Last donation date (optional)", value=prior.get("last_date", ""), placeholder="YYYY-MM-DD or leave blank")
-                donation_type = st.selectbox(
-                    "Last donation type", ["Not stated", "Whole blood", "Platelets / plasma apheresis", "Other / unsure"],
-                    index=["Not stated", "Whole blood", "Platelets / plasma apheresis", "Other / unsure"].index(prior.get("donation_type", "Not stated")),
+                st.rerun()
+
+        saved_intakes = [
+            (key, value)
+            for key, value in st.session_state.screening_intake.items()
+            if key.startswith(f"{st.session_state.request_key}:")
+        ]
+        if saved_intakes:
+            st.markdown("#### Donor entries for this request")
+        for intake_key, intake in saved_intakes:
+            donor_id = intake_key.rsplit(":", 1)[-1]
+            with st.container(border=True):
+                st.markdown(f"**{donor_id} · {intake['name']}**")
+                hb = intake["hemoglobin_g_dl"]
+                hb_text = f"{hb:g} g/dL" if hb is not None else "not provided"
+                st.caption(
+                    f"Age {intake['age']} · Weight {intake['weight_kg']:g} kg · "
+                    f"Gender: {intake['gender']} · Hemoglobin: {hb_text}"
                 )
-                feeling_well = st.selectbox(
-                    "Feeling well today? (self-reported)", ["Not answered", "Yes", "No / unsure"],
-                    index=["Not answered", "Yes", "No / unsure"].index(prior.get("feeling_well", "Not answered")),
-                )
-                discussion = st.selectbox(
-                    "Anything recent to discuss with blood-bank staff?", ["Not answered", "Nothing reported", "Yes / unsure", "Prefer not to say"],
-                    index=["Not answered", "Nothing reported", "Yes / unsure", "Prefer not to say"].index(prior.get("discussion", "Not answered")),
-                )
-                submitted_intake = st.form_submit_button("Save demo handoff", type="primary")
-            if submitted_intake:
-                if not donor_confirmed:
-                    st.error("Confirm the fictional demo entries before saving this intake.")
-                else:
-                    st.session_state.screening_intake[intake_key] = {
-                        "age": int(age), "weight_kg": float(weight), "gender": gender,
-                        "hemoglobin_g_dl": float(hemoglobin), "donor_confirmed": True,
-                        "donation_history": donation_history, "last_date": last_date.strip(),
-                        "donation_type": donation_type, "feeling_well": feeling_well, "discussion": discussion,
-                        "review_status": "Blood-bank review pending", "review_recorded_at": None,
-                    }
-                    add_audit(f"Demo screening intake self-confirmed and recorded for {donor_id}; Blood-bank review pending")
-                    st.rerun()
-            saved_intake = st.session_state.screening_intake.get(intake_key)
-            if saved_intake:
-                review_status = saved_intake["review_status"]
-                if review_status == "Blood-bank review pending":
-                    st.warning(f"{donor_id}: {review_status}. No eligibility decision was made.")
-                    if st.button("Record demo blood-bank review", key=f"review_{st.session_state.request_key}_{donor_id}"):
-                        saved_intake["review_status"] = "Review recorded (demo only)"
-                        saved_intake["review_recorded_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        add_audit(f"Demo blood-bank review step recorded for {donor_id}; no eligibility decision made")
+                if intake["review_status"] == "Blood-bank review pending":
+                    st.warning("Blood-bank review pending · no eligibility decision made.")
+                    if st.button("Record demo review step", key=f"review_{intake_key}"):
+                        intake["review_status"] = "Review step recorded (demo only)"
+                        intake["review_recorded_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        add_audit(
+                            f"Demo review step recorded for {donor_id}; no eligibility decision made"
+                        )
                         st.rerun()
                 else:
-                    st.success(f"{donor_id}: {review_status}. This records a demo workflow step only; the app does not verify eligibility.")
-                st.caption(
-                    f"Demo intake: age {saved_intake['age'] or 'not provided'}; "
-                    f"weight {saved_intake['weight_kg'] or 'not provided'} kg; "
-                    f"gender {saved_intake['gender']}; "
-                    f"hemoglobin {saved_intake['hemoglobin_g_dl'] or 'not provided'} g/dL; "
-                    f"donation history: {saved_intake['donation_history']}."
-                )
+                    st.success(intake["review_status"])
 
 else:
     st.subheader("Request history / audit")
@@ -523,6 +537,6 @@ else:
 
 st.divider()
 st.caption(
-    "Demo only · fictional donor data · anonymized IDs · no contact details shown · "
+    "Preloaded ranking candidates are fictional · donor self-entry stays in this session only · "
     "final eligibility and blood verification remain with authorized healthcare providers / blood banks."
 )

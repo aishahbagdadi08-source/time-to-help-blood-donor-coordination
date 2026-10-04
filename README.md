@@ -1,12 +1,12 @@
 # Time to Help
 
-A Streamlit prototype for coordinating potentially suitable emergency blood donors. All donor records are fictional. This app does not confirm transfusion compatibility or medical eligibility.
+A Streamlit prototype for coordinating potentially suitable emergency blood donors. Preloaded ranking candidates are fictional; self-entered donor details are held only in the active Streamlit session. This app does not confirm transfusion compatibility or medical eligibility.
 
 ## Files
 
 - `app.py` - UI with a light/dark theme switch, request and input navigation, demo data, explainable score, response flow, screening handoff, and session audit log.
 - `requirements.txt` - Streamlit dependency.
-- `.streamlit/config.toml` - dark visual theme.
+- `.streamlit/config.toml` - light blood-camp theme with dark theme palette.
 
 ## Run
 
@@ -33,7 +33,7 @@ The app screens out donor groups outside a simplified red-cell compatibility loo
 
 The donor records, distances, and response estimates are fictional. "Simulate contact" only records a demo event; the app sends no messages. A real care team would contact verified candidates using an authorized channel and registry. Request verification must also happen outside the prototype. Progress is derived from current Accepted responses and capped at the requested units. Request IDs must be unique within a session. Session data resets when the Streamlit session ends.
 
-The **Donor Screening** page includes separate Age, Weight, Gender, and Hemoglobin sections plus donation history and prompts for blood-bank staff. Values are fictional and self-reported; donor confirmation is not identity verification. Each submission starts **Blood-bank review pending**. A separate button can record a **demo review step**, but it does not verify eligibility or represent a real clinician's review. The intake applies no thresholds and does not determine eligibility. This boundary follows e-RaktKosh's note that its questionnaire is general guidance and donors should consult a doctor: [e-RaktKosh](https://eraktkosh.mohfw.gov.in/).
+The **Donor Screening** page lets donors enter their own name, age (18+), weight, gender, and optional hemoglobin value. These details stay in the active Streamlit session; they are not shown in ranked results or included in audit events. The prototype has no sign-in or identity verification, so self-entry is not proof of identity or eligibility. Each submission starts **Blood-bank review pending**. The demo review control only records a workflow step; it does not represent a real clinician's review. No health thresholds are applied. This boundary follows e-RaktKosh's note that its questionnaire is general guidance and donors should consult a doctor: [e-RaktKosh](https://eraktkosh.mohfw.gov.in/).
 
 ## Five manual checks
 
@@ -41,5 +41,5 @@ The **Donor Screening** page includes separate Age, Weight, Gender, and Hemoglob
 2. Exact and prototype-compatible groups appear; incompatible groups do not.
 3. Unavailable candidates are excluded; unconfirmed availability scores lower.
 4. Contact multiple candidates, accept more than the requested units, then change one response; progress should recalculate accurately.
-5. Submit fictional screening intake and confirm the status remains Blood-bank review pending; check the audit log does not contain intake values.
+5. Submit donor details with age under 18 and confirm the form rejects them; submit age 18+ and confirm details are absent from ranked results and audit events.
 6. Confirm audit events appear and donor lists show anonymized IDs without personal details. Also try zeroing all weights; the app should explain that it is using defaults.
